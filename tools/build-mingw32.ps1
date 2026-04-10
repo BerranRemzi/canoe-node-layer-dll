@@ -5,6 +5,7 @@ param(
 $ErrorActionPreference = "Stop"
 $Root = Split-Path -Parent $PSScriptRoot
 $BuildDir = Join-Path $Root "build/mingw32"
+$BinDir = Join-Path $Root "bin/mingw32"
 
 # Prefer a real MinGW 32-bit toolchain if present.
 $Mingw32BinCandidates = @(
@@ -51,4 +52,13 @@ if ($LASTEXITCODE -ne 0) { throw "CMake configure failed for MinGW 32-bit build.
 cmake --build $BuildDir --config $Config
 if ($LASTEXITCODE -ne 0) { throw "CMake build failed for MinGW 32-bit build." }
 
-Write-Host "Build completed: $BuildDir/NodeLayer.dll"
+if (-not (Test-Path $BinDir)) {
+    New-Item -ItemType Directory -Path $BinDir | Out-Null
+}
+
+$OutputDll = Join-Path $BuildDir "NodeLayer.dll"
+$DestinationDll = Join-Path $BinDir "NodeLayer.dll"
+Copy-Item -Path $OutputDll -Destination $DestinationDll -Force
+
+Write-Host "Build completed: $OutputDll"
+Write-Host "Copied to: $DestinationDll"

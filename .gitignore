@@ -1,6 +1,6 @@
 # Build directories
 build/
-out/
+bin/
 cmake-build-*/
 
 # Visual Studio
@@ -22,8 +22,8 @@ cmake-build-*/
 *.dll
 *.exe
 
-# Keep reference third-party DLLs out of this template by default
-!includes/*.h
+# Keep generated deliverables in bin/ under version control
+!bin/**/*.dll
 
 # Logs and temp
 *.log

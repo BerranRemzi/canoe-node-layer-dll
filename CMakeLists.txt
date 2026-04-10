@@ -14,11 +14,11 @@ if(MINGW)
 endif()
 
 add_library(NodeLayerDLL SHARED
-  sources/NodeLayer.cpp
+  src/NodeLayer.cpp
 )
 
 if(MSVC AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-  target_sources(NodeLayerDLL PRIVATE sources/NodeLayer.def)
+  target_sources(NodeLayerDLL PRIVATE src/NodeLayer.def)
 endif()
 
 set_target_properties(NodeLayerDLL PROPERTIES
@@ -27,5 +27,5 @@ set_target_properties(NodeLayerDLL PROPERTIES
 )
 
 target_include_directories(NodeLayerDLL PRIVATE
-  ${CMAKE_CURRENT_SOURCE_DIR}/includes
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
 )

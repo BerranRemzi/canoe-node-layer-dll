@@ -4,8 +4,8 @@ Minimal, working starter repository for CANoe NodeLayer DLL development.
 
 ## What Is Included
 
-- Single working source file: `sources/NodeLayer.cpp`
-- Vector headers: `includes/cdll.h`, `includes/VIA.h`, `includes/VIA_CDLL.h`
+- Single working source file: `src/NodeLayer.cpp`
+- Vector headers: `include/cdll.h`, `include/VIA.h`, `include/VIA_CDLL.h`
 - Build scripts for MSVC Win32 and MinGW 32-bit
 
 ## Prerequisites
@@ -21,13 +21,13 @@ Minimal, working starter repository for CANoe NodeLayer DLL development.
 MSVC Win32:
 
 ```powershell
-./scripts/build-msvc-win32.ps1
+./tools/build-msvc-win32.ps1
 ```
 
 MinGW 32-bit:
 
 ```powershell
-./scripts/build-mingw32.ps1
+./tools/build-mingw32.ps1
 ```
 
 ## Build (Direct CMake)
@@ -48,8 +48,8 @@ cmake --build build/mingw32 --config Release
 
 ## Output
 
-- MSVC: `build/msvc-win32/Release/NodeLayer.dll`
-- MinGW: `build/mingw32/NodeLayer.dll`
+- MSVC: `bin/NodeLayer.dll` (copied from `build/msvc-win32/Release/NodeLayer.dll`)
+- MinGW: `bin/NodeLayer.dll` (copied from `build/mingw32/NodeLayer.dll`)
 
 ## Smoke Test In CANoe
 
