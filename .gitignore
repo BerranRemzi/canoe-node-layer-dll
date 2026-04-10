@@ -1,0 +1,38 @@
+# Build directories
+build/
+out/
+cmake-build-*/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.VC.db
+*.VC.opendb
+*.ipch
+
+# Compiler and linker outputs
+*.obj
+*.o
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.a
+*.dll
+*.exe
+
+# Keep reference third-party DLLs out of this template by default
+!includes/*.h
+
+# Logs and temp
+*.log
+*.tmp
+
+# IDE/editor
+.idea/
+.vscode/*.log
+
+# OS
+Thumbs.db
+.DS_Store
