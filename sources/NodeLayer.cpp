@@ -14,10 +14,10 @@ extern "C" IMAGE_DOS_HEADER __ImageBase;
 static VIAService *g_via_service = NULL;
 static void log_line(const char *fmt, ...);
 
-extern "C" unsigned long CAPLEXPORT CAPLPASCAL SNL_TestAdd(unsigned long a, unsigned long b)
+extern "C" unsigned long CAPLEXPORT CAPLPASCAL NL_TestAdd(unsigned long a, unsigned long b)
 {
     unsigned long result = a + b;
-    log_line("SNL_TestAdd(a=%lu, b=%lu) -> %lu", a, b, result);
+    log_line("NL_TestAdd(a=%lu, b=%lu) -> %lu", a, b, result);
     return result;
 }
 
@@ -31,7 +31,7 @@ static void get_log_path(char *path, size_t path_len)
         return;
     }
 
-    n = GetEnvironmentVariableA("SIMPLE_NODELAYER_LOG", path, (DWORD)path_len);
+    n = GetEnvironmentVariableA("NODELAYERDLL_LOG", path, (DWORD)path_len);
     if (n > 0 && n < path_len) {
         return;
     }
@@ -41,18 +41,18 @@ static void get_log_path(char *path, size_t path_len)
         slash = strrchr(path, '\\');
         if (slash != NULL) {
             slash[1] = '\0';
-            lstrcpynA(slash + 1, "SimpleNodeLayer.log", (int)(path_len - (size_t)(slash + 1 - path)));
+            lstrcpynA(slash + 1, "NodeLayerDLL.log", (int)(path_len - (size_t)(slash + 1 - path)));
             return;
         }
     }
 
     n = GetTempPathA((DWORD)path_len, path);
     if (n == 0 || n >= path_len) {
-        lstrcpynA(path, "SimpleNodeLayer.log", (int)path_len);
+        lstrcpynA(path, "NodeLayerDLL.log", (int)path_len);
         return;
     }
 
-    lstrcpynA(path + n, "SimpleNodeLayer.log", (int)(path_len - n));
+    lstrcpynA(path + n, "NodeLayerDLL.log", (int)(path_len - n));
 }
 
 static void log_line(const char *fmt, ...)
@@ -102,7 +102,7 @@ public:
     VIASTDDEF GetVersion(char *buffer, int32 bufferLength) override
     {
         if (buffer != NULL && bufferLength > 0) {
-            lstrcpynA(buffer, "SimpleNodeLayer 1.0", (int)bufferLength);
+            lstrcpynA(buffer, "NodeLayerDLL 1.0", (int)bufferLength);
         }
         log_line("VIAModuleApi::GetVersion(len=%ld)", (long)bufferLength);
         return kVIA_OK;
@@ -120,7 +120,7 @@ public:
         }
 
         if (versionBuff != NULL && versionBuffLength > 0) {
-            lstrcpynA(versionBuff, "SimpleNodeLayer 1.0", (int)versionBuffLength);
+            lstrcpynA(versionBuff, "NodeLayerDLL 1.0", (int)versionBuffLength);
         }
 
         log_line("VIAModuleApi::GetModuleParameters()");
@@ -136,7 +136,7 @@ public:
         }
 
         if (longNameBuf != NULL && longBufLength > 0) {
-            lstrcpynA(longNameBuf, "SimpleNodeLayer", (int)longBufLength);
+            lstrcpynA(longNameBuf, "NodeLayerDLL", (int)longBufLength);
         }
 
         log_line("VIAModuleApi::GetNodeInfo(nodename=%s)", name);
@@ -184,7 +184,7 @@ public:
         }
 
         if (longNameBuf != NULL && longBufLength > 0) {
-            lstrcpynA(longNameBuf, "SimpleNodeLayer", (int)longBufLength);
+            lstrcpynA(longNameBuf, "NodeLayerDLL", (int)longBufLength);
         }
 
         log_line("VIAModuleApi::GetNodeInfoEx()");
@@ -219,7 +219,7 @@ static SimpleModuleApi g_module_api;
 
 static CAPL_DLL_INFO4 g_capl_table4[] = {
     { CDLL_VERSION_NAME, (CAPL_FARCALL)CDLL_VERSION, "", "", CAPL_DLL_CDECL, 0xABCD, CDLL_EXPORT, "", {0} },
-    { "SNL_TestAdd", (CAPL_FARCALL)SNL_TestAdd, "CAPL_DLL", "Returns a+b for NodeLayer smoke test", 'L', 2, "LL", "\x0\x0", { "a", "b" } },
+    { "NL_TestAdd", (CAPL_FARCALL)NL_TestAdd, "CAPL_DLL", "Returns a+b for NodeLayer test", 'L', 2, "LL", "\x0\x0", { "a", "b" } },
     { 0 }
 };
 
