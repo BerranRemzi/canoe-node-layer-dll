@@ -14,7 +14,7 @@ Minimal, working starter repository for CANoe NodeLayer DLL development.
 - CMake 3.15+
 - One toolchain:
   - Visual Studio 2022 (MSVC, Win32 target)
-  - MinGW-w64 (32-bit)
+  - MinGW-w64 (32-bit, mingw32/i686 toolchain)
 
 ## Build (Scripts)
 

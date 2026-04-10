@@ -8,6 +8,11 @@ if(MSVC AND NOT CMAKE_GENERATOR_PLATFORM STREQUAL "Win32")
   message(WARNING "Recommended target for CANoe NodeLayer DLL is Win32 (-A Win32).")
 endif()
 
+if(MINGW)
+  add_compile_options(-m32)
+  add_link_options(-m32 -static-libgcc -static-libstdc++ -Wl,--kill-at)
+endif()
+
 add_library(NodeLayerDLL SHARED
   sources/NodeLayer.cpp
 )
@@ -18,6 +23,7 @@ endif()
 
 set_target_properties(NodeLayerDLL PROPERTIES
   OUTPUT_NAME "NodeLayer"
+  PREFIX ""
 )
 
 target_include_directories(NodeLayerDLL PRIVATE
